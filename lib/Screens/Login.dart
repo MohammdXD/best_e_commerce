@@ -1,16 +1,18 @@
 import 'package:best_e_commerce/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hyperlink/hyperlink.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Register_Screen extends StatefulWidget {
-  const Register_Screen({super.key});
+class Login_Screen extends StatefulWidget {
+  const Login_Screen({super.key});
 
   @override
-  State<Register_Screen> createState() => _RegisterSscreenState();
+  State<Login_Screen> createState() => Login_ScreenState();
 }
 
-class _RegisterSscreenState extends State<Register_Screen> {
+class Login_ScreenState extends State<Login_Screen> {
   final Uri googleUri = Uri.parse('https://flutter.dev');
   final Uri facebookUri = Uri.parse('https://flutter.dev');
   final Uri twitterUri = Uri.parse('https://flutter.dev');
@@ -35,14 +37,15 @@ class _RegisterSscreenState extends State<Register_Screen> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, Routes.completeProfile);
+      Navigator.pushNamed(context, Routes.register);
     }
   }
+
+  bool isChecked = false;
 
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final conpasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,14 +61,14 @@ class _RegisterSscreenState extends State<Register_Screen> {
                   children: [
                     SizedBox(height: 30),
                     Text(
-                      "Register Account",
+                      "Welcome Back",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "Complete your details or continue with social media",
+                      "Sgin in with your email and password or continue with social media",
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -129,37 +132,44 @@ class _RegisterSscreenState extends State<Register_Screen> {
                         },
                       ),
                     ),
-
-                    SizedBox(height: 30),
-
-                    SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        controller: conpasswordController,
-                        decoration: InputDecoration(
-                          hint: Text("Re-enter Your Password"),
-                          label: Text("Confirmed Password"),
-                          suffix: SvgPicture.asset("assets/icons/Lock.svg"),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null ||
-                              value != passwordController.text) {
-                            return 'Password does not match';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
                   ],
                 ),
               ),
 
               SizedBox(height: 70),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 35, right: 35),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      activeColor: Color(0xfffb7a43),
+                      value: isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          isChecked = value!;
+                        });
+                      },
+                    ),
+                    Text("Remember Me"),
+                    Spacer(),
+                    InkWell(
+                      child: Text(
+                        "Forgot Password",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 14,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.forgotPassword);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 30),
               SizedBox(
                 height: 50,
                 width: 330,
@@ -223,7 +233,32 @@ class _RegisterSscreenState extends State<Register_Screen> {
 
               SizedBox(height: 40),
 
-              Text("By continuing your confirm that you agree"),
+              Padding(
+                padding: EdgeInsets.fromLTRB(85, 0, 0, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(width: 5),
+
+                    InkWell(
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: Color(0xfffb7a43),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.register);
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
