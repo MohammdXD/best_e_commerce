@@ -29,192 +29,199 @@ class _OtpState extends State<Otp> {
     return Scaffold(
       appBar: AppBar(leading: BackButton()),
 
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 75),
-              child: Column(
-                children: [
-                  SizedBox(height: 30),
-                  Text(
-                    "OTP Verification",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(text: "We sent your code to +1 898 860 ***\n"),
-                        TextSpan(text: "This code will expire in "),
-                        TextSpan(
-                          text: "00:13",
-                          style: TextStyle(
-                            color: Color(0xFFff7643),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 200),
-
-            Form(
-              key: _formkey,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 75),
+                child: Column(
                   children: [
-                    SizedBox(
-                      height: 68,
-                      width: 55,
-                      child: TextFormField(
-                        controller: otp1Controller,
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          } else if (value.isEmpty) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                    SizedBox(height: 30),
+                    Text(
+                      "OTP Verification",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                    SizedBox(
-                      height: 68,
-                      width: 55,
-                      child: TextFormField(
-                        controller: otp2Controller,
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          } else if (value.isEmpty) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: "We sent your code to +1 898 860 ***\n",
                           ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 68,
-                      width: 55,
-                      child: TextFormField(
-                        controller: otp3Controller,
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          } else if (value.isEmpty) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                          TextSpan(text: "This code will expire in "),
+                          TextSpan(
+                            text: "00:13",
+                            style: TextStyle(
+                              color: Color(0xFFff7643),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 68,
-                      width: 55,
-                      child: TextFormField(
-                        controller: otp4Controller,
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          } else if (value.isEmpty) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly,
                         ],
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
 
-            SizedBox(height: 200),
-            SizedBox(
-              height: 50,
-              width: 330,
+              SizedBox(height: 200),
 
-              child: ElevatedButton(
-                onPressed: submit,
-                child: Text("Continue", style: TextStyle(fontSize: 18)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xfffb7a43),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+              Form(
+                key: _formkey,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 50, right: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      SizedBox(
+                        height: 68,
+                        width: 55,
+                        child: TextFormField(
+                          controller: otp1Controller,
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            } else if (value.isEmpty) {
+                              FocusScope.of(context).previousFocus();
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 68,
+                        width: 55,
+                        child: TextFormField(
+                          controller: otp2Controller,
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            } else if (value.isEmpty) {
+                              FocusScope.of(context).previousFocus();
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 68,
+                        width: 55,
+                        child: TextFormField(
+                          controller: otp3Controller,
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            } else if (value.isEmpty) {
+                              FocusScope.of(context).previousFocus();
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 68,
+                        width: 55,
+                        child: TextFormField(
+                          controller: otp4Controller,
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            } else if (value.isEmpty) {
+                              FocusScope.of(context).previousFocus();
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
 
-            SizedBox(height: 50),
+              SizedBox(height: 200),
+              SizedBox(
+                height: 50,
+                width: 330,
 
-            HyperLink(
-              text: '[Resend OTP Code]()',
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                child: ElevatedButton(
+                  onPressed: submit,
+                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xfffb7a43),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                ),
               ),
-              linkStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                decoration: TextDecoration.underline,
+
+              SizedBox(height: 50),
+
+              HyperLink(
+                text: '[Resend OTP Code]()',
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+                linkStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  decoration: TextDecoration.underline,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

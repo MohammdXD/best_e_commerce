@@ -37,7 +37,7 @@ class Login_ScreenState extends State<Login_Screen> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, Routes.register);
+      Navigator.pushNamed(context, Routes.home);
     }
   }
 
