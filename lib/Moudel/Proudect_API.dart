@@ -25,10 +25,10 @@ class ProudectApi {
     id: json['id'],
     title: json['title'],
     description: json['description'],
-    price: json['price'],
+    price: (json['price'] as num).toDouble(),
     category: json['category'],
     image: json['image'],
-    rate: json['rating']['rate'],
+    rate: json['rating']['rate'].toDouble(),
     count: json['rating']['count'],
   );
 

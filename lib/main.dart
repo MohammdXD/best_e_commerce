@@ -1,3 +1,4 @@
+import 'package:best_e_commerce/Provider/favorit_provider.dart';
 import 'package:best_e_commerce/Screens/CompleteProfile.dart';
 import 'package:best_e_commerce/Screens/ForgotPassword.dart';
 import 'package:best_e_commerce/Screens/Login.dart';
@@ -7,9 +8,17 @@ import 'package:best_e_commerce/Screens/Splash.dart';
 import 'package:best_e_commerce/Screens/Main_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main(List<String> args) {
-  runApp(E_commerce());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+      ],
+      child: E_commerce(),
+    ),
+  );
 }
 
 class Routes {

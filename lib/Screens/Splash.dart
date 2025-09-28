@@ -94,7 +94,7 @@ class Splash_ScrrenState extends State<Splash_Scrren> {
 
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register);
+                    Navigator.pushNamed(context, Routes.login);
                   },
                   child: Text("Continue", style: TextStyle(fontSize: 18)),
                   style: ElevatedButton.styleFrom(

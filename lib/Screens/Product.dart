@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:ui';
+
+import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Widgets/product_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:best_e_commerce/Serves/Api.dart';
 
 class Product extends StatefulWidget {
   Product({super.key});
@@ -10,6 +16,19 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+  List<ProudectApi> products = [];
+
+  getroducts() async {
+    products = await Api.getProducts();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getroducts();
+  }
+
   final List<Map<String, dynamic>> bannerItems = [
     {
       'image': 'assets/images/Image Banner 2.png',
@@ -35,158 +54,197 @@ class _ProductState extends State<Product> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Container(
-          padding: EdgeInsets.fromLTRB(10, 19, 0, 10),
-          child: TextField(
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey.shade100,
-              hintText: "Search products",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide.none,
-                gapPadding: 10,
-              ),
-              prefixIcon: Icon(Icons.search),
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 10,
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                icon: SvgPicture.asset('assets/icons/Cart Icon.svg'),
-                onPressed: () {},
-              ),
-            ),
-          ),
-          SizedBox(width: 15),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 6, 2, 0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                icon: SvgPicture.asset('assets/icons/Bell.svg'),
-                onPressed: () {},
-              ),
-            ),
-          ),
-          SizedBox(width: 25),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.only(left: 0),
-              child: Container(
-                width: 340,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Color(0xFF4b3298),
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-
-                child: Padding(
-                  padding: EdgeInsets.only(right: 150, top: 20),
-                  child: Column(
-                    children: [
-                      Text(
-                        "A Summer Suprise",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Cashback 20%",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 0, top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildMenuItem('assets/icons/Flash Icon.svg', "Flash"),
-                  _buildMenuItem('assets/icons/Bill Icon.svg', "Bill"),
-                  _buildMenuItem('assets/icons/Game Icon.svg', "Games"),
-                  _buildMenuItem('assets/icons/Gift Icon.svg', "Daily"),
-                  _buildMenuItem('assets/icons/Discover.svg', "More"),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 20),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    "Special for you",
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              floating: true,
+              snap: true,
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              elevation: 0,
+              title: Container(
+                padding: const EdgeInsets.fromLTRB(10, 19, 0, 10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
+                    hintText: "Search products",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none,
+                      gapPadding: 10,
+                    ),
+                    prefixIcon: const Icon(Icons.search),
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 10,
                     ),
                   ),
                 ),
-                Spacer(),
+              ),
+              actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 30),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Text(
-                      "See More",
-                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                  padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: SvgPicture.asset('assets/icons/Cart Icon.svg'),
+                      onPressed: () {},
                     ),
                   ),
                 ),
+                const SizedBox(width: 15),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 6, 2, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: SvgPicture.asset('assets/icons/Bell.svg'),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 25),
               ],
             ),
 
-            SizedBox(height: 20),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0),
+                      child: Container(
+                        width: 340,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF4b3298),
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
 
-            Padding(
-              padding: EdgeInsets.only(left: 30),
-              child: Container(
-                height: 150,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: bannerItems.length,
-                  itemBuilder: (context, index) {
-                    return _buildProductCard(
-                      name: bannerItems[index]['name'],
-                      brand: bannerItems[index]['brandNumber'],
-                      image: bannerItems[index]['image'],
-                    );
-                  },
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 150, top: 20),
+                          child: Column(
+                            children: [
+                              Text(
+                                "A Summer Suprise",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                "Cashback 20%",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0, top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildMenuItem(
+                            'assets/icons/Flash Icon.svg',
+                            "Flash",
+                          ),
+                          _buildMenuItem('assets/icons/Bill Icon.svg', "Bill"),
+                          _buildMenuItem('assets/icons/Game Icon.svg', "Games"),
+                          _buildMenuItem('assets/icons/Gift Icon.svg', "Daily"),
+                          _buildMenuItem('assets/icons/Discover.svg', "More"),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
+
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Text(
+                            "Special for you",
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Text(
+                              "See More",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 20),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 30),
+                      child: Container(
+                        height: 150,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: bannerItems.length,
+                          itemBuilder: (context, index) {
+                            return _buildProductCard(
+                              name: bannerItems[index]['name'],
+                              brand: bannerItems[index]['brandNumber'],
+                              image: bannerItems[index]['image'],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 30),
+                      child: Container(
+                        height: 297,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: products.length,
+                          itemBuilder: (context, index) {
+                            return ProductListItem(product: products[index]);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              ]),
             ),
           ],
         ),
@@ -200,7 +258,7 @@ Widget _buildMenuItem(String iconPath, String title) {
     onTap: () {},
     borderRadius: BorderRadius.circular(16),
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -214,15 +272,15 @@ Widget _buildMenuItem(String iconPath, String title) {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(12.0),
                 child: SvgPicture.asset(iconPath, width: 24, height: 24),
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               color: Colors.black87,
               fontWeight: FontWeight.w500,
@@ -240,10 +298,10 @@ Widget _buildProductCard({
   required String image,
 }) {
   return SizedBox(
-    width: 335,
+    width: 330,
     height: 150,
     child: Card(
-      margin: EdgeInsets.only(right: 30),
+      margin: EdgeInsets.only(right: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       clipBehavior: Clip.antiAlias,
       child: Stack(
