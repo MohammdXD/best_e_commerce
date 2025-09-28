@@ -1,5 +1,8 @@
 import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Provider/cart_provider.dart';
+import 'package:best_e_commerce/Screens/Product.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Detales_Screen extends StatefulWidget {
   const Detales_Screen({super.key, required this.product});
@@ -135,10 +138,7 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                         width: 500,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Return the product to the previous screen (CartsScreen)
-                            Navigator.pop(context, widget.product);
-                          },
+                          onPressed: () {},
                           child: Text(
                             'Add to Cart - \$${widget.product.price}',
                             style: const TextStyle(

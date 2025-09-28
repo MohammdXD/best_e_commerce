@@ -7,17 +7,28 @@ class FavoriteProvider extends ChangeNotifier {
   List<ProudectApi> get favoriteListes => _favoriteList;
 
   void toggleFavorite(ProudectApi proudect) {
-    if (_favoriteList.contains(proudect)) {
-      _favoriteList.remove(proudect);
+    if (!isFavorite(proudect)) {
+      addFavorite(proudect);
     } else {
-      _favoriteList.add(proudect);
+      removeFavorite(proudect);
     }
-    notifyListeners(); // Notify listeners to update the UI
+    notifyListeners();
+  }
+
+  void addFavorite(ProudectApi proudect) {
+    if (!_favoriteList.any((item) => item.id == proudect.id)) {
+      _favoriteList.add(proudect);
+      notifyListeners();
+    }
+  }
+
+  void removeFavorite(ProudectApi proudect) {
+    _favoriteList.removeWhere((item) => item.id == proudect.id);
+    notifyListeners();
   }
 
   bool isFavorite(ProudectApi proudect) {
-    final isFavorite = _favoriteList.contains(proudect);
-    return isFavorite;
+    return _favoriteList.any((item) => item.id == proudect.id);
   }
 
   static FavoriteProvider of(BuildContext context, {bool listen = true}) {

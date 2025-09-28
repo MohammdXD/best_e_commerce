@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:best_e_commerce/main.dart';
+
 import '../Moudel/Proudect_API.dart';
 import '../Provider/favorit_provider.dart';
+import '../main.dart';
 
 class ProductCard extends StatelessWidget {
   final ProudectApi product;
@@ -13,6 +14,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FavoriteProvider>(context);
+    final isFavorite = provider.isFavorite(product);
 
     return GestureDetector(
       onTap: () {
@@ -39,6 +41,7 @@ class ProductCard extends StatelessWidget {
                   product.image,
                   width: 150,
                   height: 150,
+                  fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return const Icon(
                       Icons.error,
@@ -49,13 +52,14 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: 5),
             Text(
               product.title,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
+            Spacer(),
             Row(
               children: [
                 Text(
@@ -66,18 +70,17 @@ class ProductCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
+                // ✅ Favorite button updates in real time
                 IconButton(
                   onPressed: () {
                     provider.toggleFavorite(product);
                   },
                   icon: SvgPicture.asset(
-                    provider.isFavorite(product)
-                        ? "assets/icons/Heart Icon_2.svg"
-                        : "assets/icons/Heart Icon.svg",
-                    color: provider.isFavorite(product)
-                        ? Colors.red
-                        : Colors.grey,
+                    isFavorite
+                        ? "assets/icons/Heart Icon_2.svg" // Red filled heart
+                        : "assets/icons/Heart Icon.svg", // Grey outline heart
+                    color: isFavorite ? Colors.red : Colors.grey,
                     width: 20,
                     height: 20,
                   ),
