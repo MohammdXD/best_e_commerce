@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:best_e_commerce/Moudel/Proudect_API.dart';
-import 'package:best_e_commerce/Widgets/product_list_item.dart';
+import 'package:best_e_commerce/Widgets/list_forYou_product.dart';
+import 'package:best_e_commerce/Widgets/menu_item.dart';
+import 'package:best_e_commerce/Widgets/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -162,14 +164,26 @@ class _ProductState extends State<Product> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildMenuItem(
-                            'assets/icons/Flash Icon.svg',
-                            "Flash",
+                          MenuItem(
+                            iconPath: 'assets/icons/Flash Icon.svg',
+                            title: 'Flash',
                           ),
-                          _buildMenuItem('assets/icons/Bill Icon.svg', "Bill"),
-                          _buildMenuItem('assets/icons/Game Icon.svg', "Games"),
-                          _buildMenuItem('assets/icons/Gift Icon.svg', "Daily"),
-                          _buildMenuItem('assets/icons/Discover.svg', "More"),
+                          MenuItem(
+                            iconPath: 'assets/icons/Bill Icon.svg',
+                            title: 'Bill',
+                          ),
+                          MenuItem(
+                            iconPath: 'assets/icons/Game Icon.svg',
+                            title: 'Games',
+                          ),
+                          MenuItem(
+                            iconPath: 'assets/icons/Gift Icon.svg',
+                            title: 'Daily',
+                          ),
+                          MenuItem(
+                            iconPath: 'assets/icons/Discover.svg',
+                            title: 'More',
+                          ),
                         ],
                       ),
                     ),
@@ -216,7 +230,7 @@ class _ProductState extends State<Product> {
                           scrollDirection: Axis.horizontal,
                           itemCount: bannerItems.length,
                           itemBuilder: (context, index) {
-                            return _buildProductCard(
+                            return Productlist(
                               name: bannerItems[index]['name'],
                               brand: bannerItems[index]['brandNumber'],
                               image: bannerItems[index]['image'],
@@ -224,6 +238,38 @@ class _ProductState extends State<Product> {
                           },
                         ),
                       ),
+                    ),
+
+                    SizedBox(height: 20),
+
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Text(
+                            "Popular Products",
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Text(
+                              "See More",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
 
                     SizedBox(height: 20),
@@ -236,7 +282,7 @@ class _ProductState extends State<Product> {
                           scrollDirection: Axis.horizontal,
                           itemCount: products.length,
                           itemBuilder: (context, index) {
-                            return ProductListItem(product: products[index]);
+                            return ProductCard(product: products[index]);
                           },
                         ),
                       ),
@@ -250,101 +296,4 @@ class _ProductState extends State<Product> {
       ),
     );
   }
-}
-
-Widget _buildMenuItem(String iconPath, String title) {
-  return InkWell(
-    onTap: () {},
-    borderRadius: BorderRadius.circular(16),
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Hero(
-            tag: title,
-            child: Container(
-              width: 52,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(12.0),
-                child: SvgPicture.asset(iconPath, width: 24, height: 24),
-              ),
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget _buildProductCard({
-  required String name,
-  required String brand,
-  required String image,
-}) {
-  return SizedBox(
-    width: 330,
-    height: 150,
-    child: Card(
-      margin: EdgeInsets.only(right: 20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
-        children: [
-          Positioned.fill(child: Image.asset(image, fit: BoxFit.cover)),
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.black.withOpacity(0.5), Colors.transparent],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 60,
-            left: 10,
-            right: 16,
-            child: Container(
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    brand,
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }

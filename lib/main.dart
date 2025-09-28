@@ -56,8 +56,8 @@ class E_commerce extends StatelessWidget {
           },
         },
         debugShowCheckedModeBanner: false,
-        //home: Splash_Scrren(),
-        home: MainScreen(),
+        home: Splash_Scrren(),
+        //home: MainScreen(),
       ),
     );
   }

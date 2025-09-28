@@ -5,10 +5,10 @@ import 'package:best_e_commerce/main.dart';
 import '../Moudel/Proudect_API.dart';
 import '../Provider/favorit_provider.dart';
 
-class ProductListItem extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final ProudectApi product;
 
-  const ProductListItem({super.key, required this.product});
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {

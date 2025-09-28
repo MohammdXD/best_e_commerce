@@ -14,9 +14,10 @@ class _ChatState extends State<Chat> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        title: Text("Favorites", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text("Chat", style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Text(
