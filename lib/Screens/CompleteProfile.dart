@@ -25,7 +25,8 @@ class _CompleteprofileState extends State<Completeprofile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackButton()),
+      backgroundColor: Colors.white,
+      appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

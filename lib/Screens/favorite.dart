@@ -14,8 +14,13 @@ class Favorite extends StatefulWidget {
 class FfavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<FavoriteProvider>(context);
-    final finalList = provider.favoriteListes;
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    final favorites = favoriteProvider.favorites;
+
+    void initState() {
+      super.initState();
+      favoriteProvider.loadFavorites();
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,7 +29,7 @@ class FfavoriteState extends State<Favorite> {
         backgroundColor: Colors.white,
         title: Text("Favorites", style: TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body: finalList.isEmpty
+      body: favorites.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -55,15 +60,15 @@ class FfavoriteState extends State<Favorite> {
                       mainAxisSpacing: 15,
                       childAspectRatio: 0.7,
                     ),
-                    itemCount: finalList.length,
+                    itemCount: favorites.length,
                     itemBuilder: (context, index) {
-                      final favoritItem = finalList[index];
+                      final favoriteItem = favorites[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(
                             context,
                             Routes.details_product,
-                            arguments: finalList[index],
+                            arguments: favoriteItem,
                           );
                         },
                         child: Padding(
@@ -94,7 +99,7 @@ class FfavoriteState extends State<Favorite> {
                                     ),
                                   ),
                                   child: Image.network(
-                                    favoritItem.image,
+                                    favoriteItem.image,
                                     width: 150,
                                     height: 120,
                                     fit: BoxFit.contain,
@@ -110,7 +115,7 @@ class FfavoriteState extends State<Favorite> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    favoritItem.title,
+                                    favoriteItem.title,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -128,7 +133,7 @@ class FfavoriteState extends State<Favorite> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        '\$${favoritItem.price}',
+                                        '\$${favoriteItem.price}',
                                         style: const TextStyle(
                                           color: Colors.deepOrangeAccent,
                                           fontSize: 16,
@@ -137,8 +142,10 @@ class FfavoriteState extends State<Favorite> {
                                       ),
                                       IconButton(
                                         onPressed: () {
-                                          finalList.removeAt(index);
-                                          setState(() {});
+                                          // Remove from favorites using the provider
+                                          favoriteProvider.removeFromFavorites(
+                                            favoriteItem,
+                                          );
                                         },
                                         icon: SvgPicture.asset(
                                           "assets/icons/Heart Icon_2.svg",

@@ -1,4 +1,5 @@
 import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Provider/cart_provider.dart';
 import 'package:best_e_commerce/Provider/favorit_provider.dart';
 import 'package:best_e_commerce/Screens/CompleteProfile.dart';
 import 'package:best_e_commerce/Screens/Detales_Product.dart';
@@ -9,19 +10,16 @@ import 'package:best_e_commerce/Screens/Product.dart';
 import 'package:best_e_commerce/Screens/Register.dart';
 import 'package:best_e_commerce/Screens/Splash.dart';
 import 'package:best_e_commerce/Screens/Main_Screen.dart';
-import 'package:best_e_commerce/Serves/local_storage_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await LocalStorageService.init();
-
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
       child: E_commerce(),
     ),
@@ -60,8 +58,8 @@ class E_commerce extends StatelessWidget {
           },
         },
         debugShowCheckedModeBanner: false,
-        //home: Splash_Scrren(),
-        home: MainScreen(),
+        home: Splash_Scrren(),
+        //home: MainScreen(),
       ),
     );
   }

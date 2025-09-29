@@ -14,6 +14,7 @@ class Splash_ScrrenState extends State<Splash_Scrren> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Column(

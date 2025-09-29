@@ -21,17 +21,6 @@ class ProudectApi {
     required this.count,
   });
 
-  factory ProudectApi.fromJson(Map<String, dynamic> json) => ProudectApi(
-    id: json['id'],
-    title: json['title'],
-    description: json['description'],
-    price: (json['price'] as num).toDouble(),
-    category: json['category'],
-    image: json['image'],
-    rate: json['rating']['rate'].toDouble(),
-    count: json['rating']['count'],
-  );
-
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -40,8 +29,20 @@ class ProudectApi {
       'description': description,
       'category': category,
       'image': image,
-      'rate': rate,
-      'count': count,
+      'rating': {'rate': rate, 'count': count},
     };
+  }
+
+  factory ProudectApi.fromJson(Map<String, dynamic> json) {
+    return ProudectApi(
+      id: json['id'],
+      title: json['title'],
+      price: (json['price'] as num).toDouble(),
+      description: json['description'],
+      category: json['category'],
+      image: json['image'],
+      rate: (json['rating']['rate'] as num).toDouble(),
+      count: json['rating']['count'],
+    );
   }
 }

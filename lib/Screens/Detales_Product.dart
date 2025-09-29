@@ -102,7 +102,14 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                           const Icon(Icons.star, color: Colors.amber, size: 20),
                           const SizedBox(width: 5),
                           Text(
-                            '4.8',
+                            widget.product.rate.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+
+                          Spacer(),
+
+                          Text(
+                            "${widget.product.count.toString()} pieces",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],

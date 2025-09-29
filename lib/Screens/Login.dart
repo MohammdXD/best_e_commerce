@@ -2,7 +2,7 @@ import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hyperlink/hyperlink.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Login_Screen extends StatefulWidget {
@@ -13,23 +13,70 @@ class Login_Screen extends StatefulWidget {
 }
 
 class Login_ScreenState extends State<Login_Screen> {
+  final _formkey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  bool _isChecked = false;
+  late SharedPreferences _prefs;
+
   final Uri googleUri = Uri.parse('https://flutter.dev');
   final Uri facebookUri = Uri.parse('https://flutter.dev');
   final Uri twitterUri = Uri.parse('https://flutter.dev');
 
-  Future<void> _googleUri(Uri url) async {
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isChecked = _prefs.getBool('rememberMe') ?? false;
+      if (_isChecked) {
+        emailController.text = _prefs.getString('savedEmail') ?? '';
+      }
+    });
+  }
+
+  Future<void> _saveEmail() async {
+    if (_isChecked && emailController.text.isNotEmpty) {
+      await _prefs.setString('savedEmail', emailController.text);
+    }
+  }
+
+  Future<void> _clearEmail() async {
+    await _prefs.remove('savedEmail');
+  }
+
+  Future<void> _toggleRememberMe(bool? value) async {
+    setState(() {
+      _isChecked = value ?? false;
+    });
+
+    await _prefs.setBool('rememberMe', _isChecked);
+
+    if (_isChecked) {
+      await _saveEmail();
+    } else {
+      await _clearEmail();
+    }
+  }
+
+  Future<void> _googleUri() async {
     if (!await launchUrl(googleUri)) {
       throw Exception('Could not launch $googleUri');
     }
   }
 
-  Future<void> _facebookUri(Uri url) async {
+  Future<void> _facebookUri() async {
     if (!await launchUrl(facebookUri)) {
       throw Exception('Could not launch $facebookUri');
     }
   }
 
-  Future<void> _twitterUri(Uri url) async {
+  Future<void> _twitterUri() async {
     if (!await launchUrl(twitterUri)) {
       throw Exception('Could not launch $twitterUri');
     }
@@ -37,19 +84,18 @@ class Login_ScreenState extends State<Login_Screen> {
 
   void submit() {
     if (_formkey.currentState!.validate()) {
+      if (_isChecked) {
+        _saveEmail();
+      }
       Navigator.pushNamed(context, Routes.home);
     }
   }
 
-  bool isChecked = false;
-
-  final _formkey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackButton()),
+      backgroundColor: Colors.white,
+      appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
 
       body: SingleChildScrollView(
         child: Center(
@@ -68,7 +114,7 @@ class Login_ScreenState extends State<Login_Screen> {
                       ),
                     ),
                     Text(
-                      "Sgin in with your email and password or continue with social media",
+                      "Sign in with your email and password or continue with social media",
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -86,11 +132,12 @@ class Login_ScreenState extends State<Login_Screen> {
                       child: TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
-                          hint: Text("Enter Your Email"),
-                          label: Text("Email"),
-                          suffix: SvgPicture.asset(
+                          hintText: "Enter Your Email",
+                          labelText: "Email",
+                          suffixIcon: SvgPicture.asset(
                             "assets/icons/Mail.svg",
                             height: 15,
+                            fit: BoxFit.scaleDown,
                           ),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
@@ -98,11 +145,12 @@ class Login_ScreenState extends State<Login_Screen> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || !value.contains("@gmail.com")) {
-                            return "Please enter Valid Email";
-                          } else {
-                            return null;
+                          if (value == null ||
+                              value.isEmpty ||
+                              !value.contains("@gmail.com")) {
+                            return "Please enter a valid Email";
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -114,9 +162,12 @@ class Login_ScreenState extends State<Login_Screen> {
                       child: TextFormField(
                         controller: passwordController,
                         decoration: InputDecoration(
-                          hint: Text("Enter Your Password"),
-                          label: Text("Password"),
-                          suffix: SvgPicture.asset("assets/icons/Lock.svg"),
+                          hintText: "Enter Your Password",
+                          labelText: "Password",
+                          suffixIcon: SvgPicture.asset(
+                            "assets/icons/Lock.svg",
+                            fit: BoxFit.scaleDown,
+                          ),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -126,9 +177,8 @@ class Login_ScreenState extends State<Login_Screen> {
                         validator: (value) {
                           if (value == null || value.length < 6) {
                             return "Password must be at least 6 characters long";
-                          } else {
-                            return null;
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -144,16 +194,15 @@ class Login_ScreenState extends State<Login_Screen> {
                   children: [
                     Checkbox(
                       activeColor: Color(0xfffb7a43),
-                      value: isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          isChecked = value!;
-                        });
-                      },
+                      value: _isChecked,
+                      onChanged: _toggleRememberMe,
                     ),
                     Text("Remember Me"),
                     Spacer(),
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.forgotPassword);
+                      },
                       child: Text(
                         "Forgot Password",
                         style: TextStyle(
@@ -161,9 +210,6 @@ class Login_ScreenState extends State<Login_Screen> {
                           fontSize: 14,
                         ),
                       ),
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.forgotPassword);
-                      },
                     ),
                   ],
                 ),
@@ -173,7 +219,6 @@ class Login_ScreenState extends State<Login_Screen> {
               SizedBox(
                 height: 50,
                 width: 330,
-
                 child: ElevatedButton(
                   onPressed: submit,
                   child: Text("Continue", style: TextStyle(fontSize: 18)),
@@ -192,9 +237,7 @@ class Login_ScreenState extends State<Login_Screen> {
                 child: Row(
                   children: [
                     TextButton(
-                      onPressed: () {
-                        _googleUri(googleUri);
-                      },
+                      onPressed: _googleUri,
                       style: TextButton.styleFrom(
                         shape: CircleBorder(),
                         backgroundColor: Color(0xfff5f6f9),
@@ -205,9 +248,7 @@ class Login_ScreenState extends State<Login_Screen> {
                     SizedBox(width: 10),
 
                     TextButton(
-                      onPressed: () {
-                        _facebookUri(facebookUri);
-                      },
+                      onPressed: _facebookUri,
                       style: TextButton.styleFrom(
                         shape: CircleBorder(),
                         backgroundColor: Color(0xfff5f6f9),
@@ -218,9 +259,7 @@ class Login_ScreenState extends State<Login_Screen> {
                     SizedBox(width: 10),
 
                     TextButton(
-                      onPressed: () {
-                        _twitterUri(twitterUri);
-                      },
+                      onPressed: _twitterUri,
                       style: TextButton.styleFrom(
                         shape: CircleBorder(),
                         backgroundColor: Color(0xfff5f6f9),
@@ -244,6 +283,9 @@ class Login_ScreenState extends State<Login_Screen> {
                     SizedBox(width: 5),
 
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.register);
+                      },
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
@@ -252,9 +294,6 @@ class Login_ScreenState extends State<Login_Screen> {
                           fontSize: 16,
                         ),
                       ),
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.register);
-                      },
                     ),
                   ],
                 ),
@@ -264,5 +303,12 @@ class Login_ScreenState extends State<Login_Screen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

@@ -27,7 +27,8 @@ class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackButton()),
+      backgroundColor: Colors.white,
+      appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
 
       body: SingleChildScrollView(
         child: Center(

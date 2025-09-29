@@ -1,37 +1,79 @@
 import 'package:best_e_commerce/Moudel/Proudect_API.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
-class FavoriteProvider extends ChangeNotifier {
-  final List<ProudectApi> _favoriteList = [];
-  List<ProudectApi> get favoriteListes => _favoriteList;
+class FavoriteProvider with ChangeNotifier {
+  List<ProudectApi> _favorites = [];
 
-  void toggleFavorite(ProudectApi proudect) {
-    if (!isFavorite(proudect)) {
-      addFavorite(proudect);
-    } else {
-      removeFavorite(proudect);
-    }
-    notifyListeners();
+  List<ProudectApi> get favorites => _favorites;
+
+  static String _favoritesKey = 'favorites';
+  late SharedPreferences prefs;
+
+  FavoriteProvider() {
+    loadFavorites();
   }
 
-  void addFavorite(ProudectApi proudect) {
-    if (!_favoriteList.any((item) => item.id == proudect.id)) {
-      _favoriteList.add(proudect);
+  Future<void> loadFavorites() async {
+    try {
+      prefs = await SharedPreferences.getInstance();
+      final favoritesJson = prefs.getStringList(_favoritesKey);
+
+      if (favoritesJson != null) {
+        _favorites = favoritesJson.map((jsonString) {
+          final Map<String, dynamic> json = jsonDecode(jsonString);
+          return ProudectApi.fromJson(json);
+        }).toList();
+        notifyListeners();
+      }
+    } catch (e) {
+      print('Error loading favorites: $e');
+    }
+  }
+
+  Future<void> _saveFavorites() async {
+    try {
+      prefs = await SharedPreferences.getInstance();
+      final favoritesJson = _favorites.map((product) {
+        return jsonEncode(product.toJson());
+      }).toList();
+      await prefs.setStringList(_favoritesKey, favoritesJson);
+    } catch (e) {
+      print('Error saving favorites: $e');
+    }
+  }
+
+  Future<void> addToFavorites(ProudectApi product) async {
+    if (!_favorites.any((item) => item.id == product.id)) {
+      _favorites.add(product);
       notifyListeners();
+      await _saveFavorites();
     }
   }
 
-  void removeFavorite(ProudectApi proudect) {
-    _favoriteList.removeWhere((item) => item.id == proudect.id);
+  Future<void> removeFromFavorites(ProudectApi product) async {
+    _favorites.removeWhere((item) => item.id == product.id);
     notifyListeners();
+    await _saveFavorites();
   }
 
-  bool isFavorite(ProudectApi proudect) {
-    return _favoriteList.any((item) => item.id == proudect.id);
+  Future<void> toggleFavorite(ProudectApi product) async {
+    if (isFavorite(product)) {
+      await removeFromFavorites(product);
+    } else {
+      await addToFavorites(product);
+    }
   }
 
-  static FavoriteProvider of(BuildContext context, {bool listen = true}) {
-    return Provider.of<FavoriteProvider>(context, listen: listen);
+  bool isFavorite(ProudectApi product) {
+    return _favorites.any((item) => item.id == product.id);
+  }
+
+  Future<void> clearFavorites() async {
+    _favorites.clear();
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_favoritesKey);
   }
 }
