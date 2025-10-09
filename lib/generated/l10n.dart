@@ -84,10 +84,10 @@ class S {
     return Intl.message('Add to Cart', name: 'addToCart', desc: '', args: []);
   }
 
-  /// ` added to cart!`
+  /// `Added to Cart`
   String get addedToCart {
     return Intl.message(
-      ' added to cart!',
+      'Added to Cart',
       name: 'addedToCart',
       desc: '',
       args: [],
@@ -129,14 +129,64 @@ class S {
     return Intl.message('Cashback 20%', name: 'cashback20', desc: '', args: []);
   }
 
+  /// `Your cart is empty`
+  String get cartIsEmpty {
+    return Intl.message(
+      'Your cart is empty',
+      name: 'cartIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chat`
   String get chat {
     return Intl.message('Chat', name: 'chat', desc: '', args: []);
   }
 
+  /// `Checkout`
+  String get checkout {
+    return Intl.message('Checkout', name: 'checkout', desc: '', args: []);
+  }
+
+  /// `Checkout feature coming soon!`
+  String get checkoutComingSoon {
+    return Intl.message(
+      'Checkout feature coming soon!',
+      name: 'checkoutComingSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear`
+  String get clear {
+    return Intl.message('Clear', name: 'clear', desc: '', args: []);
+  }
+
+  /// `Clear Cart`
+  String get clearCart {
+    return Intl.message('Clear Cart', name: 'clearCart', desc: '', args: []);
+  }
+
+  /// `Are you sure you want to clear your cart?`
+  String get clearCartConfirmation {
+    return Intl.message(
+      'Are you sure you want to clear your cart?',
+      name: 'clearCartConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Close`
   String get close {
     return Intl.message('Close', name: 'close', desc: '', args: []);
+  }
+
+  /// `cancel`
+  String get cancel {
+    return Intl.message('cancel', name: 'cancel', desc: '', args: []);
   }
 
   /// `This code will expire in `
@@ -339,16 +389,6 @@ class S {
     return Intl.message('Language', name: 'language', desc: '', args: []);
   }
 
-  /// `Last Name`
-  String get lastName {
-    return Intl.message('Last Name', name: 'lastName', desc: '', args: []);
-  }
-
-  /// `Logout`
-  String get logout {
-    return Intl.message('Logout', name: 'logout', desc: '', args: []);
-  }
-
   /// `Language Settings`
   String get languageSettings {
     return Intl.message(
@@ -357,6 +397,16 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Last Name`
+  String get lastName {
+    return Intl.message('Last Name', name: 'lastName', desc: '', args: []);
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message('Logout', name: 'logout', desc: '', args: []);
   }
 
   /// `More`
@@ -569,11 +619,6 @@ class S {
     return Intl.message('Security', name: 'security', desc: '', args: []);
   }
 
-  /// `Settings`
-  String get settings {
-    return Intl.message('Settings', name: 'settings', desc: '', args: []);
-  }
-
   /// `See More`
   String get seeMore {
     return Intl.message('See More', name: 'seeMore', desc: '', args: []);
@@ -584,6 +629,21 @@ class S {
     return Intl.message(
       'See More Detail',
       name: 'seeMoreDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Shopping Cart`
+  String get shoppingCart {
+    return Intl.message(
+      'Shopping Cart',
+      name: 'shoppingCart',
       desc: '',
       args: [],
     );
@@ -644,9 +704,9 @@ class S {
     );
   }
 
-  /// `View Cart`
-  String get viewCart {
-    return Intl.message('View Cart', name: 'viewCart', desc: '', args: []);
+  /// `Total`
+  String get total {
+    return Intl.message('Total', name: 'total', desc: '', args: []);
   }
 
   /// `Please enter valid email`
@@ -657,6 +717,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `View Cart`
+  String get viewCart {
+    return Intl.message('View Cart', name: 'viewCart', desc: '', args: []);
   }
 
   /// `Welcome Back`

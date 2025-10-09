@@ -27,9 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "aboutUs": MessageLookupByLibrary.simpleMessage("من نحن"),
     "accountSettings": MessageLookupByLibrary.simpleMessage("إعدادات الحساب"),
     "addToCart": MessageLookupByLibrary.simpleMessage("إضافة إلى السلة"),
-    "addedToCart": MessageLookupByLibrary.simpleMessage(
-      " تمت إضافته إلى السلة!",
-    ),
+    "addedToCart": MessageLookupByLibrary.simpleMessage("تم الإضافة إلى السلة"),
     "address": MessageLookupByLibrary.simpleMessage("العنوان"),
     "agreeTerms": MessageLookupByLibrary.simpleMessage(
       "بالمتابعة، تؤكد أنك توافق",
@@ -37,8 +35,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "bill": MessageLookupByLibrary.simpleMessage("فواتير"),
     "brands1": MessageLookupByLibrary.simpleMessage("علامات تجارية 18"),
     "brands2": MessageLookupByLibrary.simpleMessage("علامات تجارية 24"),
+    "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+    "cartIsEmpty": MessageLookupByLibrary.simpleMessage("سلة التسوق فارغة"),
     "cashback20": MessageLookupByLibrary.simpleMessage("استرداد نقدي 20%"),
     "chat": MessageLookupByLibrary.simpleMessage("الدردشة"),
+    "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
+    "checkoutComingSoon": MessageLookupByLibrary.simpleMessage(
+      "ميزة الدفع قريباً!",
+    ),
+    "clear": MessageLookupByLibrary.simpleMessage("تفريغ"),
+    "clearCart": MessageLookupByLibrary.simpleMessage("تفريغ السلة"),
+    "clearCartConfirmation": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد من أنك تريد تفريغ سلة التسوق؟",
+    ),
     "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
     "codeExpire": MessageLookupByLibrary.simpleMessage(
       "سينتهي صلاحية هذا الرمز خلال ",
@@ -137,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "seeMoreDetail": MessageLookupByLibrary.simpleMessage(
       "رؤية المزيد من التفاصيل",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+    "shoppingCart": MessageLookupByLibrary.simpleMessage("سلة التسوق"),
     "signInDescription": MessageLookupByLibrary.simpleMessage(
       "سجل الدخول باستخدام بريدك الإلكتروني وكلمة المرور أو تابع عبر وسائل التواصل الاجتماعي",
     ),
@@ -148,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "بالمتابعة، تؤكد أنك توافق على الشروط والأحكام",
     ),
     "termsOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
+    "total": MessageLookupByLibrary.simpleMessage("المجموع"),
     "validEmail": MessageLookupByLibrary.simpleMessage(
       "يرجى إدخال بريد إلكتروني صحيح",
     ),

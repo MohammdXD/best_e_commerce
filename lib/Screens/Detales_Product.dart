@@ -1,12 +1,16 @@
 import 'package:best_e_commerce/Moudel/Proudect_API.dart';
 import 'package:best_e_commerce/Provider/cart_provider.dart';
+import 'package:best_e_commerce/Provider/favorit_provider.dart';
+import 'package:best_e_commerce/Provider/language_provider.dart';
 import 'package:best_e_commerce/Screens/Product.dart';
+import 'package:best_e_commerce/generated/l10n.dart' show S;
+import 'package:best_e_commerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class Detales_Screen extends StatefulWidget {
-  const Detales_Screen({super.key, required this.product});
+  Detales_Screen({super.key, required this.product});
 
   final ProudectApi product;
 
@@ -21,6 +25,14 @@ class _Detales_ScreenState extends State<Detales_Screen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FavoriteProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    final isFavorite = provider.isFavorite(widget.product);
+    final isInCart = cartProvider.isProductInCart(widget.product);
+    final cartItem = cartProvider.getCartItemByProduct(widget.product);
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final isArabic = languageProvider.isArabic;
+
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
@@ -34,29 +46,45 @@ class _Detales_ScreenState extends State<Detales_Screen> {
               color: Colors.white,
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              padding: isArabic
+                  ? EdgeInsets.only(right: 10, top: 5, bottom: 5)
+                  : EdgeInsets.only(left: 10, top: 5, bottom: 5),
               child: Icon(Icons.arrow_back_ios),
             ),
           ),
           onPressed: () {
-            Navigator.pop(context); // Just go back without returning data
+            Navigator.pop(context);
           },
         ),
 
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: isArabic
+                ? EdgeInsets.only(left: 20)
+                : EdgeInsets.only(right: 20),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white,
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                padding: EdgeInsets.only(top: 5, bottom: 5),
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 5, left: 10),
+                      padding: isArabic
+                          ? EdgeInsets.only(
+                              right: 10,
+                              left: 5,
+                              top: 5,
+                              bottom: 5,
+                            )
+                          : EdgeInsets.only(
+                              right: 5,
+                              left: 10,
+                              top: 5,
+                              bottom: 5,
+                            ),
                       child: Text(
                         '${widget.product.rate}',
                         style: TextStyle(
@@ -66,7 +94,9 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 5),
+                      padding: isArabic
+                          ? EdgeInsets.only(left: 5)
+                          : EdgeInsets.only(right: 5),
                       child: SvgPicture.asset("assets/icons/Star Icon.svg"),
                     ),
                   ],
@@ -95,18 +125,18 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                       height: 250,
                       fit: BoxFit.contain,
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
 
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
@@ -114,18 +144,18 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
                         widget.product.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
 
                     Row(
                       children: [
@@ -135,24 +165,40 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                           height: 55,
                           decoration: BoxDecoration(
                             color: Colors.red[50],
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(26),
-                              bottomLeft: Radius.circular(26),
-                            ),
+                            borderRadius: isArabic
+                                ? BorderRadius.only(
+                                    topRight: Radius.circular(26),
+                                    bottomRight: Radius.circular(26),
+                                  )
+                                : BorderRadius.only(
+                                    topLeft: Radius.circular(26),
+                                    bottomLeft: Radius.circular(26),
+                                  ),
                           ),
                           child: IconButton(
                             style: IconButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(26),
-                                  bottomLeft: Radius.circular(26),
-                                ),
+                                borderRadius: isArabic
+                                    ? BorderRadius.only(
+                                        topRight: Radius.circular(26),
+                                        bottomRight: Radius.circular(26),
+                                      )
+                                    : BorderRadius.only(
+                                        topLeft: Radius.circular(26),
+                                        bottomLeft: Radius.circular(26),
+                                      ),
                               ),
                             ),
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
+                            onPressed: () {
+                              provider.toggleFavorite(widget.product);
+                            },
+                            icon: SvgPicture.asset(
+                              isFavorite
+                                  ? "assets/icons/Heart Icon_2.svg"
+                                  : "assets/icons/Heart Icon.svg",
+                              color: isFavorite ? Colors.red : Colors.grey,
+                              width: 20,
+                              height: 20,
                             ),
                           ),
                         ),
@@ -160,17 +206,17 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                     ),
                     SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      padding: EdgeInsets.only(left: 15, right: 15),
                       child: Text(
                         widget.product.description,
                         maxLines: 3,
-                        style: const TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
 
                     if (_isDescriptionLong())
                       Padding(
-                        padding: const EdgeInsets.only(left: 5),
+                        padding: EdgeInsets.only(left: 5),
                         child: TextButton(
                           onPressed: () {
                             _showFullDescription(context, widget.product);
@@ -178,7 +224,7 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                           child: Row(
                             children: [
                               Text(
-                                'See More Detail',
+                                S.of(context).seeMoreDetail,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -208,28 +254,100 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                         children: [
                           Row(children: []),
                           Spacer(),
+
+                          // Show quantity controls if item is in cart
+                          if (isInCart && cartItem != null) ...[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    final currentQuantity = cartProvider
+                                        .getProductQuantity(widget.product);
+                                    if (currentQuantity > 1) {
+                                      cartProvider.updateQuantity(
+                                        cartItem.id,
+                                        currentQuantity - 1,
+                                      );
+                                    } else {
+                                      cartProvider.removeCartById(cartItem.id);
+                                    }
+                                  },
+                                  icon: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: Color(0xfffb7a43),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 20),
+                                Text(
+                                  '${cartProvider.getProductQuantity(widget.product)}',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(width: 20),
+                                IconButton(
+                                  onPressed: () {
+                                    final currentQuantity = cartProvider
+                                        .getProductQuantity(widget.product);
+                                    cartProvider.updateQuantity(
+                                      cartItem.id,
+                                      currentQuantity + 1,
+                                    );
+                                  },
+                                  icon: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xfffb7a43),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Icon(Icons.add, color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                          ],
+
                           SizedBox(
                             width: 250,
                             height: 60,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xfffb7a43),
+                                backgroundColor: isInCart
+                                    ? Colors.green
+                                    : Color(0xfffb7a43),
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (!isInCart) {
+                                  cartProvider.addProductToCart(widget.product);
+                                  _showAddedToCartSnackbar(
+                                    context,
+                                    widget.product,
+                                  );
+                                }
+                              },
                               child: Text(
-                                'Add to Cart',
-                                style: const TextStyle(
+                                isInCart
+                                    ? S.of(context).addedToCart
+                                    : S.of(context).addToCart,
+                                style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ),
-
                           SizedBox(height: 20),
                         ],
                       ),
@@ -250,30 +368,46 @@ void _showFullDescription(BuildContext context, ProudectApi product) {
     context: context,
     isScrollControlled: true,
     builder: (context) => Container(
-      height: MediaQuery.of(context).size.height * 0.8,
-      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      height: MediaQuery.of(context).size.height * 0.5,
+      padding: EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Product Description',
+          Text(
+            S.of(context).productDescription,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               child: Text(
                 product.description,
-                style: const TextStyle(fontSize: 16, height: 1.5),
+                style: TextStyle(fontSize: 16, height: 1.5),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
+            height: 50,
             child: ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Close'),
+              child: Text(
+                S.of(context).close,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color(0xfffb7a43),
+                ),
+              ),
             ),
           ),
         ],
@@ -285,12 +419,13 @@ void _showFullDescription(BuildContext context, ProudectApi product) {
 void _showAddedToCartSnackbar(BuildContext context, ProudectApi product) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text('${product.title} added to cart!'),
-      duration: const Duration(seconds: 2),
+      content: Text('${product.title} ${S.of(context).addedToCart}!'),
+      duration: Duration(seconds: 2),
       action: SnackBarAction(
-        label: 'View Cart',
+        label: S.of(context).viewCart,
         onPressed: () {
           // Navigate to cart screen
+          Navigator.pushNamed(context, Routes.cart);
         },
       ),
     ),

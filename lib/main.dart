@@ -11,6 +11,7 @@ import 'package:best_e_commerce/Screens/OTP.dart';
 import 'package:best_e_commerce/Screens/Register.dart';
 import 'package:best_e_commerce/Screens/Splash.dart';
 import 'package:best_e_commerce/Screens/Main_Screen.dart';
+import 'package:best_e_commerce/Screens/cart.dart';
 import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,6 +42,7 @@ class Routes {
   static String home = 'home';
   static String details_product = 'details_product';
   static String languageSettings = 'languageSettings';
+  static String cart = "cart";
 }
 
 class E_commerce extends StatelessWidget {
@@ -69,6 +71,7 @@ class E_commerce extends StatelessWidget {
               Routes.forgotPassword: (context) => Forgotpassword(),
               Routes.home: (context) => MainScreen(),
               Routes.languageSettings: (context) => LanguagePage(),
+              Routes.cart: (context) => CartScreen(),
               Routes.details_product: (context) {
                 final product =
                     ModalRoute.of(context)!.settings.arguments as ProudectApi;

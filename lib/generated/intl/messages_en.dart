@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
     "accountSettings": MessageLookupByLibrary.simpleMessage("Account Settings"),
     "addToCart": MessageLookupByLibrary.simpleMessage("Add to Cart"),
-    "addedToCart": MessageLookupByLibrary.simpleMessage(" added to cart!"),
+    "addedToCart": MessageLookupByLibrary.simpleMessage("Added to Cart"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
     "agreeTerms": MessageLookupByLibrary.simpleMessage(
       "By continuing your confirm that you agree",
@@ -37,8 +37,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "bill": MessageLookupByLibrary.simpleMessage("Bill"),
     "brands1": MessageLookupByLibrary.simpleMessage("Brands 18"),
     "brands2": MessageLookupByLibrary.simpleMessage("Brands 24"),
+    "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
+    "cartIsEmpty": MessageLookupByLibrary.simpleMessage("Your cart is empty"),
     "cashback20": MessageLookupByLibrary.simpleMessage("Cashback 20%"),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
+    "checkoutComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Checkout feature coming soon!",
+    ),
+    "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+    "clearCart": MessageLookupByLibrary.simpleMessage("Clear Cart"),
+    "clearCartConfirmation": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to clear your cart?",
+    ),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "codeExpire": MessageLookupByLibrary.simpleMessage(
       "This code will expire in ",
@@ -138,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "seeMore": MessageLookupByLibrary.simpleMessage("See More"),
     "seeMoreDetail": MessageLookupByLibrary.simpleMessage("See More Detail"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "shoppingCart": MessageLookupByLibrary.simpleMessage("Shopping Cart"),
     "signInDescription": MessageLookupByLibrary.simpleMessage(
       "Sign in with your email and password or continue with social media",
     ),
@@ -149,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "By continuing your confirm that you agree with our terms and conditions",
     ),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
+    "total": MessageLookupByLibrary.simpleMessage("Total"),
     "validEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter valid email",
     ),
