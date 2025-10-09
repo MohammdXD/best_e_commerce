@@ -26,6 +26,7 @@ class FfavoriteState extends State<Favorite> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: Text(

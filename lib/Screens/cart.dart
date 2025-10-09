@@ -21,7 +21,6 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
         title: Text(S.of(context).shoppingCart),
         actions: [
           if (cartProvider.cartsList.isNotEmpty)
@@ -241,6 +240,7 @@ class CartScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
         title: Text(S.of(context).clearCart),
         content: Text(S.of(context).clearCartConfirmation),
         actions: [

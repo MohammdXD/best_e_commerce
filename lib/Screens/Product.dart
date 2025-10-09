@@ -6,6 +6,7 @@ import 'package:best_e_commerce/Widgets/list_forYou_product.dart';
 import 'package:best_e_commerce/Widgets/menu_item.dart';
 import 'package:best_e_commerce/Widgets/product_card.dart';
 import 'package:best_e_commerce/generated/l10n.dart';
+import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -100,7 +101,9 @@ class _ProductState extends State<Product> {
                     ),
                     child: IconButton(
                       icon: SvgPicture.asset('assets/icons/Cart Icon.svg'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.cart);
+                      },
                     ),
                   ),
                 ),

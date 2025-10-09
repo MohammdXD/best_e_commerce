@@ -1,13 +1,8 @@
-import 'package:best_e_commerce/Provider/cart_provider.dart';
 import 'package:best_e_commerce/Screens/Chat.dart';
 import 'package:best_e_commerce/Screens/Product.dart';
 import 'package:best_e_commerce/Screens/Profile.dart';
 import 'package:best_e_commerce/Screens/favorite.dart';
-import 'package:best_e_commerce/Screens/Cart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,7 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Widget> _pages = [Product(), Favorite(), CartScreen(), Profile()];
+  List<Widget> _pages = [Product(), Favorite(), Chat(), Profile()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -59,8 +54,8 @@ class _MainScreenState extends State<MainScreen> {
                 label: 'Favorite',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_outlined),
-                label: 'Cart',
+                icon: Icon(Icons.chat_bubble_outline),
+                label: 'chat',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
