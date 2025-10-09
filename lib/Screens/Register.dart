@@ -1,3 +1,4 @@
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -59,14 +60,14 @@ class _RegisterSscreenState extends State<Register_Screen> {
                   children: [
                     SizedBox(height: 30),
                     Text(
-                      "Register Account",
+                      S.of(context).registerAccount,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "Complete your details or continue with social media",
+                      S.of(context).completeYourDetails,
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -84,8 +85,8 @@ class _RegisterSscreenState extends State<Register_Screen> {
                       child: TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
-                          hint: Text("Enter Your Email"),
-                          label: Text("Email"),
+                          hint: Text(S.of(context).enterYourEmail),
+                          label: Text(S.of(context).email),
                           suffix: SvgPicture.asset(
                             "assets/icons/Mail.svg",
                             height: 15,
@@ -97,7 +98,7 @@ class _RegisterSscreenState extends State<Register_Screen> {
                         ),
                         validator: (value) {
                           if (value == null || !value.contains("@gmail.com")) {
-                            return "Please enter Valid Email";
+                            return S.of(context).validEmail;
                           } else {
                             return null;
                           }
@@ -112,8 +113,8 @@ class _RegisterSscreenState extends State<Register_Screen> {
                       child: TextFormField(
                         controller: passwordController,
                         decoration: InputDecoration(
-                          hint: Text("Enter Your Password"),
-                          label: Text("Password"),
+                          hint: Text(S.of(context).enterYourPassword),
+                          label: Text(S.of(context).password),
                           suffix: SvgPicture.asset("assets/icons/Lock.svg"),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
@@ -123,7 +124,7 @@ class _RegisterSscreenState extends State<Register_Screen> {
                         obscureText: true,
                         validator: (value) {
                           if (value == null || value.length < 6) {
-                            return "Password must be at least 6 characters long";
+                            return S.of(context).passwordValidation;
                           } else {
                             return null;
                           }
@@ -138,8 +139,8 @@ class _RegisterSscreenState extends State<Register_Screen> {
                       child: TextFormField(
                         controller: conpasswordController,
                         decoration: InputDecoration(
-                          hint: Text("Re-enter Your Password"),
-                          label: Text("Confirmed Password"),
+                          hint: Text(S.of(context).reEnterPassword),
+                          label: Text(S.of(context).confirmedPassword),
                           suffix: SvgPicture.asset("assets/icons/Lock.svg"),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
@@ -150,7 +151,7 @@ class _RegisterSscreenState extends State<Register_Screen> {
                         validator: (value) {
                           if (value == null ||
                               value != passwordController.text) {
-                            return 'Password does not match';
+                            return S.of(context).passwordNotMatch;
                           }
                           return null;
                         },
@@ -167,7 +168,10 @@ class _RegisterSscreenState extends State<Register_Screen> {
 
                 child: ElevatedButton(
                   onPressed: submit,
-                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    S.of(context).Continue,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
@@ -178,8 +182,10 @@ class _RegisterSscreenState extends State<Register_Screen> {
                 ),
               ),
 
+              SizedBox(height: 50),
+
               Padding(
-                padding: const EdgeInsets.only(top: 50, left: 85),
+                padding: const EdgeInsets.symmetric(horizontal: 90),
                 child: Row(
                   children: [
                     TextButton(
@@ -222,9 +228,9 @@ class _RegisterSscreenState extends State<Register_Screen> {
                 ),
               ),
 
-              SizedBox(height: 40),
+              SizedBox(height: 30),
 
-              Text("By continuing your confirm that you agree"),
+              Text(S.of(context).agreeTerms),
             ],
           ),
         ),

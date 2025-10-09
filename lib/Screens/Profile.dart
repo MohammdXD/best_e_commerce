@@ -1,3 +1,5 @@
+import 'package:best_e_commerce/Screens/Language_Page.dart';
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -9,28 +11,43 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<Profile> {
-  final List<Map<String, dynamic>> profileData = [
-    {
-      "title": "Full Name",
-      "name": "Mohammad Abu-Alhayja'a",
-      "icon": Icons.person,
-    },
-    {"title": "Email", "name": "mohammad@email.com", "icon": Icons.email},
-    {"title": "Phone Number", "name": "+962 79 123 4567", "icon": Icons.phone},
-  ];
-
-  final List<Map<String, dynamic>> accountSettingsData = [
-    {"title": "Notification Settings", "icon": Icons.notifications},
-    {"title": "Privacy Policy", "icon": Icons.privacy_tip},
-    {"title": "Security", "icon": Icons.security},
-    {"title": "Language", "icon": Icons.language},
-    {"title": "Help & Support", "icon": Icons.help},
-    {"title": "About Us", "icon": Icons.info},
-    {"title": "Terms of Service", "icon": Icons.description},
-    {"title": "Logout", "icon": Icons.logout},
-  ];
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> profileData = [
+      {
+        "title": S.of(context).fullName,
+        "name": "Mohammad Abu-Alhayja'a",
+        "icon": Icons.person,
+      },
+      {
+        "title": S.of(context).email,
+        "name": "mohammad@email.com",
+        "icon": Icons.email,
+      },
+      {
+        "title": S.of(context).phoneNumber,
+        "name": "+962 79 123 4567",
+        "icon": Icons.phone,
+      },
+    ];
+
+    final List<Map<String, dynamic>> accountSettingsData = [
+      {
+        "title": S.of(context).notificationSettings,
+        "icon": Icons.notifications,
+      },
+      {"title": S.of(context).privacyPolicy, "icon": Icons.privacy_tip},
+      {"title": S.of(context).security, "icon": Icons.security},
+      {
+        "title": S.of(context).language,
+        "icon": Icons.language,
+        "page": LanguagePage(),
+      },
+      {"title": S.of(context).helpSupport, "icon": Icons.help},
+      {"title": S.of(context).aboutUs, "icon": Icons.info},
+      {"title": S.of(context).termsOfService, "icon": Icons.description},
+      {"title": S.of(context).logout, "icon": Icons.logout},
+    ];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +55,7 @@ class _ProfilePageState extends State<Profile> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: Text(
-          "My profile",
+          S.of(context).myProfile,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit))],
@@ -101,7 +118,7 @@ class _ProfilePageState extends State<Profile> {
             SizedBox(height: 30),
 
             Text(
-              "Account Settings",
+              S.of(context).accountSettings,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
 
@@ -110,8 +127,10 @@ class _ProfilePageState extends State<Profile> {
             ...accountSettingsData
                 .map(
                   (item) => accountSettings(
-                    title: item["title"]!,
-                    icon: item["icon"]!,
+                    context: context,
+                    title: item["title"],
+                    icon: item["icon"],
+                    page: item["page"],
                   ),
                 )
                 .toList(),
@@ -182,7 +201,12 @@ Widget profileSitting({
   );
 }
 
-Widget accountSettings({required String title, required IconData icon}) {
+Widget accountSettings({
+  required BuildContext context,
+  required String title,
+  required IconData icon,
+  Widget? page,
+}) {
   return Column(
     children: [
       Container(
@@ -190,11 +214,18 @@ Widget accountSettings({required String title, required IconData icon}) {
         height: 60,
         decoration: BoxDecoration(),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            if (page != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => page),
+              );
+            }
+          },
           child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 33, top: 5, bottom: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.grey.shade200,
@@ -205,7 +236,6 @@ Widget accountSettings({required String title, required IconData icon}) {
                   child: Icon(icon, color: Color(0XFFff7643)),
                 ),
               ),
-              SizedBox(width: 20),
               Text(
                 title,
                 style: TextStyle(

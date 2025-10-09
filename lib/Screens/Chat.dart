@@ -1,3 +1,4 @@
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,14 @@ class _ChatState extends State<Chat> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        title: Text("Chat", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          S.of(context).chat,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Center(
         child: Text(
-          "No chat yet",
+          S.of(context).noChatYet,
           style: TextStyle(fontSize: 18, color: Colors.grey),
         ),
       ),

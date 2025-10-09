@@ -1,3 +1,4 @@
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,21 +38,21 @@ class _CompleteprofileState extends State<Completeprofile> {
                   children: [
                     SizedBox(height: 30),
                     Text(
-                      "Complete profile",
+                      S.of(context).completeProfile,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "Complete your details or continue with social media",
+                      S.of(context).completeYourDetails,
                       textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
 
-              SizedBox(height: 70),
+              SizedBox(height: 50),
 
               Column(
                 children: [
@@ -64,8 +65,8 @@ class _CompleteprofileState extends State<Completeprofile> {
                           child: TextFormField(
                             controller: firstNameController,
                             decoration: InputDecoration(
-                              hint: Text("Enter Your First Name"),
-                              label: Text("First Name"),
+                              hint: Text(S.of(context).enterYourFirstName),
+                              label: Text(S.of(context).firstName),
                               suffix: SvgPicture.asset("assets/icons/User.svg"),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
@@ -75,7 +76,7 @@ class _CompleteprofileState extends State<Completeprofile> {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please enter Valid Name";
+                                return S.of(context).pleaseEnterValidName;
                               } else {
                                 return null;
                               }
@@ -90,8 +91,8 @@ class _CompleteprofileState extends State<Completeprofile> {
                           child: TextFormField(
                             controller: lastNameController,
                             decoration: InputDecoration(
-                              hint: Text("Enter Your Last Name"),
-                              label: Text("Last Name"),
+                              hint: Text(S.of(context).enterYourLastName),
+                              label: Text(S.of(context).lastName),
                               suffix: SvgPicture.asset("assets/icons/User.svg"),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
@@ -101,7 +102,7 @@ class _CompleteprofileState extends State<Completeprofile> {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please enter Valid Name";
+                                return S.of(context).pleaseEnterValidName;
                               } else {
                                 return null;
                               }
@@ -117,8 +118,8 @@ class _CompleteprofileState extends State<Completeprofile> {
                             controller: phoneNumberController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                              hint: Text("Enter Your Phone Number"),
-                              label: Text("Phone Number"),
+                              hint: Text(S.of(context).enterYourPhoneNumber),
+                              label: Text(S.of(context).phoneNumber),
                               suffix: SvgPicture.asset(
                                 "assets/icons/Phone.svg",
                               ),
@@ -133,7 +134,9 @@ class _CompleteprofileState extends State<Completeprofile> {
                               if (value == null ||
                                   (value.length < 10 &&
                                       !value.contains("07"))) {
-                                return 'Please enter Valid Phone Number';
+                                return S
+                                    .of(context)
+                                    .pleaseEnterValidPhoneNumber;
                               }
                               return null;
                             },
@@ -147,8 +150,8 @@ class _CompleteprofileState extends State<Completeprofile> {
                           child: TextFormField(
                             controller: addressController,
                             decoration: InputDecoration(
-                              hint: Text("Enter Your Address"),
-                              label: Text("Address"),
+                              hint: Text(S.of(context).enterYourAddress),
+                              label: Text(S.of(context).address),
                               suffix: SvgPicture.asset(
                                 "assets/icons/Location point.svg",
                               ),
@@ -161,7 +164,7 @@ class _CompleteprofileState extends State<Completeprofile> {
 
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter Valid Address';
+                                return S.of(context).pleaseEnterValidAddress;
                               }
                               return null;
                             },
@@ -180,7 +183,10 @@ class _CompleteprofileState extends State<Completeprofile> {
 
                 child: ElevatedButton(
                   onPressed: submit,
-                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    S.of(context).Continue,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
@@ -196,7 +202,7 @@ class _CompleteprofileState extends State<Completeprofile> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60),
                 child: Text(
-                  "By continuing your confirm that you agree whit our terms and conditions",
+                  S.of(context).agreeTerms,
                   textAlign: TextAlign.center,
                 ),
               ),

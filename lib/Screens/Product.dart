@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Provider/language_provider.dart';
 import 'package:best_e_commerce/Widgets/list_forYou_product.dart';
 import 'package:best_e_commerce/Widgets/menu_item.dart';
 import 'package:best_e_commerce/Widgets/product_card.dart';
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:best_e_commerce/Serves/Api.dart';
+import 'package:provider/provider.dart';
 
 class Product extends StatefulWidget {
   Product({super.key});
@@ -30,29 +33,31 @@ class _ProductState extends State<Product> {
     getroducts();
   }
 
-  final List<Map<String, dynamic>> bannerItems = [
+  late final List<Map<String, dynamic>> bannerItems = [
     {
       'image': 'assets/images/Image Banner 2.png',
-      'name': 'Smartphone',
-      'brandNumber': '18 Brands',
+      'name': S.of(context).smartphone,
+      'brandNumber': S.of(context).brands1,
     },
     {
       'image': 'assets/images/Image Banner 3.png',
-      'name': 'Fashion',
-      'brandNumber': '24 Brands',
+      'name': S.of(context).fashion,
+      'brandNumber': S.of(context).brands2,
     },
   ];
 
-  final List<Map<String, dynamic>> menuItems = [
-    {'icon': 'assets/icons/Flash Icon.svg', 'label': 'Flash'},
-    {'icon': 'assets/icons/Bill Icon.svg', 'label': 'Bill'},
-    {'icon': 'assets/icons/Game Icon.svg', 'label': 'Games'},
-    {'icon': 'assets/icons/Gift Icon.svg', 'label': 'Daily'},
-    {'icon': 'assets/icons/Discover.svg', 'label': 'More'},
+  late final List<Map<String, dynamic>> menuItems = [
+    {'icon': 'assets/icons/Flash Icon.svg', 'label': S.of(context).flash},
+    {'icon': 'assets/icons/Bill Icon.svg', 'label': S.of(context).bill},
+    {'icon': 'assets/icons/Game Icon.svg', 'label': S.of(context).games},
+    {'icon': 'assets/icons/Gift Icon.svg', 'label': S.of(context).daily},
+    {'icon': 'assets/icons/Discover.svg', 'label': S.of(context).more},
   ];
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final isArabic = languageProvider.isArabic;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -71,7 +76,7 @@ class _ProductState extends State<Product> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade100,
-                    hintText: "Search products",
+                    hintText: S.of(context).searchProducts,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                       borderSide: BorderSide.none,
@@ -134,19 +139,26 @@ class _ProductState extends State<Product> {
                         ),
 
                         child: Padding(
-                          padding: EdgeInsets.only(right: 150, top: 20),
+                          padding: isArabic
+                              ? EdgeInsets.only(left: 150, top: 20)
+                              : EdgeInsets.only(right: 150, top: 20),
                           child: Column(
                             children: [
-                              Text(
-                                "A Summer Suprise",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
+                              Padding(
+                                padding: isArabic
+                                    ? EdgeInsets.only(left: 60)
+                                    : EdgeInsets.only(right: 0),
+                                child: Text(
+                                  S.of(context).aSummerSurprise,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 10),
                               Text(
-                                "Cashback 20%",
+                                S.of(context).cashback20,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
@@ -159,33 +171,16 @@ class _ProductState extends State<Product> {
                       ),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0, top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MenuItem(
-                            iconPath: 'assets/icons/Flash Icon.svg',
-                            title: 'Flash',
-                          ),
-                          MenuItem(
-                            iconPath: 'assets/icons/Bill Icon.svg',
-                            title: 'Bill',
-                          ),
-                          MenuItem(
-                            iconPath: 'assets/icons/Game Icon.svg',
-                            title: 'Games',
-                          ),
-                          MenuItem(
-                            iconPath: 'assets/icons/Gift Icon.svg',
-                            title: 'Daily',
-                          ),
-                          MenuItem(
-                            iconPath: 'assets/icons/Discover.svg',
-                            title: 'More',
-                          ),
-                        ],
-                      ),
+                    SizedBox(height: 20),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: menuItems.map((item) {
+                        return MenuItem(
+                          iconPath: item['icon'],
+                          title: item['label'],
+                        );
+                      }).toList(),
                     ),
 
                     SizedBox(height: 20),
@@ -193,9 +188,9 @@ class _ProductState extends State<Product> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Special for you",
+                            S.of(context).specialForYou,
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.black87,
@@ -205,11 +200,11 @@ class _ProductState extends State<Product> {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.only(right: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: InkWell(
                             onTap: () {},
                             child: Text(
-                              "See More",
+                              S.of(context).seeMore,
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -223,7 +218,7 @@ class _ProductState extends State<Product> {
                     SizedBox(height: 20),
 
                     Padding(
-                      padding: EdgeInsets.only(left: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
                         height: 150,
                         child: ListView.builder(
@@ -245,9 +240,9 @@ class _ProductState extends State<Product> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Popular Products",
+                            S.of(context).popularProducts,
                             style: TextStyle(
                               fontSize: 24,
                               color: Colors.black87,
@@ -257,11 +252,11 @@ class _ProductState extends State<Product> {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.only(right: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: InkWell(
                             onTap: () {},
                             child: Text(
-                              "See More",
+                              S.of(context).seeMore,
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -275,7 +270,7 @@ class _ProductState extends State<Product> {
                     SizedBox(height: 20),
 
                     Padding(
-                      padding: EdgeInsets.only(left: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
                         height: 297,
                         child: ListView.builder(

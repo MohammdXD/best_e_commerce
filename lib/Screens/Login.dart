@@ -1,7 +1,10 @@
+import 'package:best_e_commerce/Provider/language_provider.dart';
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -93,6 +96,8 @@ class Login_ScreenState extends State<Login_Screen> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final isArabic = languageProvider.isArabic;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
@@ -107,21 +112,21 @@ class Login_ScreenState extends State<Login_Screen> {
                   children: [
                     SizedBox(height: 30),
                     Text(
-                      "Welcome Back",
+                      S.of(context).welcomeBack,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "Sign in with your email and password or continue with social media",
+                      S.of(context).signInDescription,
                       textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
 
-              SizedBox(height: 100),
+              SizedBox(height: 80),
 
               Form(
                 key: _formkey,
@@ -132,8 +137,8 @@ class Login_ScreenState extends State<Login_Screen> {
                       child: TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
-                          hintText: "Enter Your Email",
-                          labelText: "Email",
+                          hintText: S.of(context).enterYourEmail,
+                          labelText: S.of(context).email,
                           suffixIcon: SvgPicture.asset(
                             "assets/icons/Mail.svg",
                             height: 15,
@@ -148,7 +153,7 @@ class Login_ScreenState extends State<Login_Screen> {
                           if (value == null ||
                               value.isEmpty ||
                               !value.contains("@gmail.com")) {
-                            return "Please enter a valid Email";
+                            return S.of(context).validEmail;
                           }
                           return null;
                         },
@@ -162,8 +167,8 @@ class Login_ScreenState extends State<Login_Screen> {
                       child: TextFormField(
                         controller: passwordController,
                         decoration: InputDecoration(
-                          hintText: "Enter Your Password",
-                          labelText: "Password",
+                          hintText: S.of(context).enterYourPassword,
+                          labelText: S.of(context).password,
                           suffixIcon: SvgPicture.asset(
                             "assets/icons/Lock.svg",
                             fit: BoxFit.scaleDown,
@@ -176,7 +181,7 @@ class Login_ScreenState extends State<Login_Screen> {
                         obscureText: true,
                         validator: (value) {
                           if (value == null || value.length < 6) {
-                            return "Password must be at least 6 characters long";
+                            return S.of(context).passwordValidation;
                           }
                           return null;
                         },
@@ -197,14 +202,14 @@ class Login_ScreenState extends State<Login_Screen> {
                       value: _isChecked,
                       onChanged: _toggleRememberMe,
                     ),
-                    Text("Remember Me"),
+                    Text(S.of(context).rememberMe),
                     Spacer(),
                     InkWell(
                       onTap: () {
                         Navigator.pushNamed(context, Routes.forgotPassword);
                       },
                       child: Text(
-                        "Forgot Password",
+                        S.of(context).forgotPassword,
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           fontSize: 14,
@@ -221,7 +226,10 @@ class Login_ScreenState extends State<Login_Screen> {
                 width: 330,
                 child: ElevatedButton(
                   onPressed: submit,
-                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    S.of(context).Continue,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
@@ -232,8 +240,10 @@ class Login_ScreenState extends State<Login_Screen> {
                 ),
               ),
 
+              SizedBox(height: 50),
+
               Padding(
-                padding: const EdgeInsets.only(top: 50, left: 85),
+                padding: const EdgeInsets.symmetric(horizontal: 90),
                 child: Row(
                   children: [
                     TextButton(
@@ -273,11 +283,13 @@ class Login_ScreenState extends State<Login_Screen> {
               SizedBox(height: 40),
 
               Padding(
-                padding: EdgeInsets.fromLTRB(85, 0, 0, 0),
+                padding: isArabic
+                    ? EdgeInsets.symmetric(horizontal: 100)
+                    : EdgeInsets.symmetric(horizontal: 80),
                 child: Row(
                   children: [
                     Text(
-                      "Don't have an account?",
+                      S.of(context).dontHaveAccount,
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(width: 5),
@@ -287,7 +299,7 @@ class Login_ScreenState extends State<Login_Screen> {
                         Navigator.pushNamed(context, Routes.register);
                       },
                       child: Text(
-                        "Sign Up",
+                        S.of(context).signUp,
                         style: TextStyle(
                           color: Color(0xfffb7a43),
                           fontWeight: FontWeight.bold,

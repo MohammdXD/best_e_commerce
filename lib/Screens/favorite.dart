@@ -1,4 +1,5 @@
 import 'package:best_e_commerce/Provider/favorit_provider.dart';
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,7 +28,10 @@ class FfavoriteState extends State<Favorite> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        title: Text("Favorites", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          S.of(context).favorites,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: favorites.isEmpty
           ? Center(
@@ -37,12 +41,12 @@ class FfavoriteState extends State<Favorite> {
                   Icon(Icons.favorite_border, size: 64, color: Colors.grey),
                   SizedBox(height: 16),
                   Text(
-                    "No favorites yet",
+                    S.of(context).noFavoritesYet,
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Tap the heart icon to add products to favorites",
+                    S.of(context).favoritesInstruction,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
@@ -124,6 +128,7 @@ class FfavoriteState extends State<Favorite> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
+                                Spacer(),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0,

@@ -1,27 +1,69 @@
+import 'package:best_e_commerce/Provider/language_provider.dart';
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Splash_Scrren extends StatefulWidget {
   const Splash_Scrren({super.key});
 
   @override
-  State<Splash_Scrren> createState() => Splash_ScrrenState();
+  State<Splash_Scrren> createState() => _Splash_ScrrenState();
 }
 
-class Splash_ScrrenState extends State<Splash_Scrren> {
+class _Splash_ScrrenState extends State<Splash_Scrren> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final isArabic = languageProvider.isArabic;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Text(
+                  "EN",
+                  style: TextStyle(
+                    color: isArabic ? Colors.grey : Color(0xfffb7a43),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Switch(
+                  value: isArabic,
+                  onChanged: (value) {
+                    languageProvider.toggleLanguage();
+                  },
+                  activeColor: Color(0xfffb7a43),
+                  inactiveTrackColor: Colors.deepOrange.shade100,
+                  inactiveThumbColor: Color(0xfffb7a43),
+                  thumbIcon: MaterialStateProperty.all(
+                    Icon(Icons.language, color: Colors.white),
+                  ),
+                ),
+                Text(
+                  "AR",
+                  style: TextStyle(
+                    color: isArabic ? Color(0xfffb7a43) : Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 50),
               Text(
-                "TOKOTO",
+                S.of(context).splashTitle,
                 style: TextStyle(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
@@ -30,7 +72,7 @@ class Splash_ScrrenState extends State<Splash_Scrren> {
               ),
               SizedBox(height: 10),
               Text(
-                "Welcome to Tokoto, Let's shop!",
+                S.of(context).welcomeMessage,
                 style: TextStyle(fontSize: 18),
               ),
 
@@ -97,7 +139,10 @@ class Splash_ScrrenState extends State<Splash_Scrren> {
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.login);
                   },
-                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    S.of(context).Continue,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,

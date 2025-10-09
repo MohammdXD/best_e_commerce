@@ -1,3 +1,4 @@
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _OtpState extends State<Otp> {
                   children: [
                     SizedBox(height: 30),
                     Text(
-                      "OTP Verification",
+                      S.of(context).otpVerification,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -52,10 +53,8 @@ class _OtpState extends State<Otp> {
                       text: TextSpan(
                         style: TextStyle(color: Colors.black),
                         children: [
-                          TextSpan(
-                            text: "We sent your code to +1 898 860 ***\n",
-                          ),
-                          TextSpan(text: "This code will expire in "),
+                          TextSpan(text: S.of(context).otpSentMessage),
+                          TextSpan(text: S.of(context).codeExpire),
                           TextSpan(
                             text: "00:13",
                             style: TextStyle(
@@ -195,7 +194,10 @@ class _OtpState extends State<Otp> {
 
                 child: ElevatedButton(
                   onPressed: submit,
-                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    S.of(context).Continue,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
@@ -209,7 +211,7 @@ class _OtpState extends State<Otp> {
               SizedBox(height: 50),
 
               HyperLink(
-                text: '[Resend OTP Code]()',
+                text: '[${S.of(context).resendOtpCode}]()',
                 textStyle: TextStyle(
                   color: Colors.black,
                   fontSize: 14,

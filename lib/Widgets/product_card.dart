@@ -26,30 +26,22 @@ class ProductCard extends StatelessWidget {
       },
       child: Container(
         width: 180,
-        margin: const EdgeInsets.only(right: 5),
+        margin: EdgeInsets.symmetric(horizontal: 5),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 30),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Image.network(
-                  product.image,
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(
-                      Icons.error,
-                      size: 50,
-                      color: Colors.grey,
-                    );
-                  },
-                ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Image.network(
+                product.image,
+                width: 125,
+                height: 125,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error, size: 50, color: Colors.grey);
+                },
               ),
             ),
             SizedBox(height: 5),

@@ -1,7 +1,10 @@
+import 'package:best_e_commerce/Provider/language_provider.dart';
+import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class Forgotpassword extends StatefulWidget {
   const Forgotpassword({super.key});
@@ -21,6 +24,8 @@ class _ForgotpasswordState extends State<Forgotpassword> {
   final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final isArabic = languageProvider.isArabic;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
@@ -34,7 +39,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   children: [
                     SizedBox(height: 30),
                     Text(
-                      "Forgot Password",
+                      S.of(context).forgotPassword,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -43,9 +48,13 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   ],
                 ),
               ),
-              Text(
-                "Please enter your email and we will send \n you a link to return to you account",
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Text(
+                  S.of(context).forgotPasswordDescription,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
               ),
 
               SizedBox(height: 200),
@@ -57,8 +66,8 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   child: TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
-                      hint: Text("Enter Your Email"),
-                      label: Text("Email"),
+                      hint: Text(S.of(context).enterYourEmail),
+                      label: Text(S.of(context).email),
                       suffix: SvgPicture.asset(
                         "assets/icons/Mail.svg",
                         height: 15,
@@ -70,7 +79,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                     ),
                     validator: (value) {
                       if (value == null || !value.contains("@gmail.com")) {
-                        return "Please enter Valid Email";
+                        return S.of(context).validEmail;
                       } else {
                         return null;
                       }
@@ -86,7 +95,10 @@ class _ForgotpasswordState extends State<Forgotpassword> {
 
                 child: ElevatedButton(
                   onPressed: submit,
-                  child: Text("Continue", style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    S.of(context).Continue,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xfffb7a43),
                     foregroundColor: Colors.white,
@@ -98,18 +110,20 @@ class _ForgotpasswordState extends State<Forgotpassword> {
               ),
 
               Padding(
-                padding: EdgeInsets.fromLTRB(85, 50, 0, 0),
+                padding: isArabic
+                    ? EdgeInsets.symmetric(horizontal: 100, vertical: 80)
+                    : EdgeInsets.symmetric(horizontal: 80, vertical: 80),
                 child: Row(
                   children: [
                     Text(
-                      "Don't have an account?",
+                      S.of(context).dontHaveAccount,
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(width: 5),
 
                     InkWell(
                       child: Text(
-                        "Sign Up",
+                        S.of(context).signUp,
                         style: TextStyle(
                           color: Color(0xfffb7a43),
                           fontWeight: FontWeight.bold,
