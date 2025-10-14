@@ -146,9 +146,9 @@ class FfavoriteState extends State<Favorite> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
+                                      SizedBox(width: 20),
                                       IconButton(
                                         onPressed: () {
-                                          // Remove from favorites using the provider
                                           favoriteProvider.removeFromFavorites(
                                             favoriteItem,
                                           );

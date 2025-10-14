@@ -6,24 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class Forgotpassword extends StatefulWidget {
-  const Forgotpassword({super.key});
-
-  @override
-  State<Forgotpassword> createState() => _ForgotpasswordState();
-}
-
-class _ForgotpasswordState extends State<Forgotpassword> {
-  void submit() {
-    if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, Routes.register);
-    }
-  }
+class Forgotpassword extends StatelessWidget {
+  Forgotpassword({super.key});
 
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    void submit() {
+      if (_formkey.currentState!.validate()) {
+        Navigator.pushNamed(context, Routes.register);
+      }
+    }
+
     final languageProvider = Provider.of<LanguageProvider>(context);
     final isArabic = languageProvider.isArabic;
     return Scaffold(
@@ -78,7 +73,8 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                       ),
                     ),
                     validator: (value) {
-                      if (value == null || !value.contains("@gmail.com")) {
+                      if (value == null ||
+                          !value.toLowerCase().contains("@gmail.com")) {
                         return S.of(context).validEmail;
                       } else {
                         return null;

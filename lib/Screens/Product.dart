@@ -275,7 +275,7 @@ class _ProductState extends State<Product> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
-                        height: 297,
+                        height: 316,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: products.length,

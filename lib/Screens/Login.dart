@@ -152,7 +152,7 @@ class Login_ScreenState extends State<Login_Screen> {
                         validator: (value) {
                           if (value == null ||
                               value.isEmpty ||
-                              !value.contains("@gmail.com")) {
+                              !value.toLowerCase().contains("@gmail.com")) {
                             return S.of(context).validEmail;
                           }
                           return null;

@@ -4,14 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Register_Screen extends StatefulWidget {
-  const Register_Screen({super.key});
+class Register_Screen extends StatelessWidget {
+  Register_Screen({super.key});
 
-  @override
-  State<Register_Screen> createState() => _RegisterSscreenState();
-}
-
-class _RegisterSscreenState extends State<Register_Screen> {
   final Uri googleUri = Uri.parse('https://flutter.dev');
   final Uri facebookUri = Uri.parse('https://flutter.dev');
   final Uri twitterUri = Uri.parse('https://flutter.dev');
@@ -34,18 +29,18 @@ class _RegisterSscreenState extends State<Register_Screen> {
     }
   }
 
-  void submit() {
-    if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, Routes.completeProfile);
-    }
-  }
-
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final conpasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    void submit() {
+      if (_formkey.currentState!.validate()) {
+        Navigator.pushNamed(context, Routes.completeProfile);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
@@ -97,7 +92,8 @@ class _RegisterSscreenState extends State<Register_Screen> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || !value.contains("@gmail.com")) {
+                          if (value == null ||
+                              !value.toLowerCase().contains("@gmail.com")) {
                             return S.of(context).validEmail;
                           } else {
                             return null;

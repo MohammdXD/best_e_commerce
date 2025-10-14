@@ -1,10 +1,9 @@
+import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Provider/favorit_provider.dart';
+import 'package:best_e_commerce/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
-import '../Moudel/Proudect_API.dart';
-import '../Provider/favorit_provider.dart';
-import '../main.dart';
 
 class ProductCard extends StatelessWidget {
   final ProudectApi product;
@@ -30,7 +29,7 @@ class ProductCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -62,8 +61,7 @@ class ProductCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 5),
-                // ✅ Favorite button updates in real time
+                Spacer(),
                 IconButton(
                   onPressed: () {
                     provider.toggleFavorite(product);

@@ -4,19 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Completeprofile extends StatefulWidget {
-  const Completeprofile({super.key});
-
-  @override
-  State<Completeprofile> createState() => _CompleteprofileState();
-}
-
-class _CompleteprofileState extends State<Completeprofile> {
-  void submit() {
-    if (_formkey.currentState!.validate()) {
-      Navigator.pushNamed(context, Routes.otp);
-    }
-  }
+class Completeprofile extends StatelessWidget {
+  Completeprofile({super.key});
 
   final _formkey = GlobalKey<FormState>();
   final firstNameController = TextEditingController();
@@ -25,6 +14,12 @@ class _CompleteprofileState extends State<Completeprofile> {
   final addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    void submit() {
+      if (_formkey.currentState!.validate()) {
+        Navigator.pushNamed(context, Routes.otp);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white),
