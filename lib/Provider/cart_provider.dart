@@ -1,5 +1,5 @@
-import 'package:best_e_commerce/Moudel/Carts_API.dart';
-import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Module/Carts_API.dart';
+import 'package:best_e_commerce/Module/Proudect_API.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,11 +1,11 @@
 // cart_screen.dart
-import 'package:best_e_commerce/Moudel/Carts_API.dart';
+import 'package:best_e_commerce/Module/Carts_API.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:best_e_commerce/Provider/cart_provider.dart';
 import 'package:best_e_commerce/Provider/language_provider.dart';
 import 'package:best_e_commerce/generated/l10n.dart';
-import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Module/Proudect_API.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

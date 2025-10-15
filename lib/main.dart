@@ -1,4 +1,4 @@
-import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Module/Proudect_API.dart';
 import 'package:best_e_commerce/Provider/cart_provider.dart';
 import 'package:best_e_commerce/Provider/favorit_provider.dart';
 import 'package:best_e_commerce/Provider/language_provider.dart';

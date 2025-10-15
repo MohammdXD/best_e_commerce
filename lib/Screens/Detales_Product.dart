@@ -1,8 +1,9 @@
-import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Module/Proudect_API.dart';
 import 'package:best_e_commerce/Provider/cart_provider.dart';
 import 'package:best_e_commerce/Provider/favorit_provider.dart';
 import 'package:best_e_commerce/Provider/language_provider.dart';
 import 'package:best_e_commerce/Screens/Product.dart';
+import 'package:best_e_commerce/Widgets/color_selector.dart';
 import 'package:best_e_commerce/generated/l10n.dart' show S;
 import 'package:best_e_commerce/main.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,15 @@ class _Detales_ScreenState extends State<Detales_Screen> {
     final cartItem = cartProvider.getCartItemByProduct(widget.product);
     final languageProvider = Provider.of<LanguageProvider>(context);
     final isArabic = languageProvider.isArabic;
+
+    final List<Color> availableColors = [
+      const Color(0xFFFF6B6B), // red
+      const Color(0xFF8C6EFF), // purple
+      const Color(0xFFE7C68E), // beige
+      const Color(0xFFFFFFFF), // white
+    ];
+
+    Color? selectedColor;
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -255,11 +265,21 @@ class _Detales_ScreenState extends State<Detales_Screen> {
                           Row(children: []),
                           Spacer(),
 
-                          // Show quantity controls if item is in cart
                           if (isInCart && cartItem != null) ...[
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                SizedBox(width: 10),
+                                ColorSelector(
+                                  availableColors: availableColors,
+                                  selectedColor: selectedColor,
+                                  onColorSelected: (color) {
+                                    setState(() {
+                                      selectedColor = color;
+                                    });
+                                  },
+                                ),
+
+                                Spacer(),
                                 IconButton(
                                   onPressed: () {
                                     final currentQuantity = cartProvider
@@ -424,7 +444,6 @@ void _showAddedToCartSnackbar(BuildContext context, ProudectApi product) {
       action: SnackBarAction(
         label: S.of(context).viewCart,
         onPressed: () {
-          // Navigate to cart screen
           Navigator.pushNamed(context, Routes.cart);
         },
       ),

@@ -16,6 +16,7 @@ class Login_Screen extends StatefulWidget {
 }
 
 class Login_ScreenState extends State<Login_Screen> {
+  bool _obscurePassword = true;
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -166,19 +167,44 @@ class Login_ScreenState extends State<Login_Screen> {
                       width: 330,
                       child: TextFormField(
                         controller: passwordController,
+                        obscureText: _obscurePassword,
                         decoration: InputDecoration(
                           hintText: S.of(context).enterYourPassword,
                           labelText: S.of(context).password,
-                          suffixIcon: SvgPicture.asset(
-                            "assets/icons/Lock.svg",
-                            fit: BoxFit.scaleDown,
+                          suffixIcon: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: Icon(
+                                    _obscurePassword
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility_outlined,
+                                    color: Colors.grey[500],
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
+                                SizedBox(width: 4),
+                                SvgPicture.asset(
+                                  "assets/icons/Lock.svg", // Example: visibility icon
+                                  fit: BoxFit.scaleDown,
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                SizedBox(width: 7),
+                              ],
+                            ),
                           ),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        obscureText: true,
                         validator: (value) {
                           if (value == null || value.length < 6) {
                             return S.of(context).passwordValidation;

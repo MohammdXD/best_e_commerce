@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Module/Proudect_API.dart';
 import 'package:best_e_commerce/Provider/language_provider.dart';
 import 'package:best_e_commerce/Widgets/list_forYou_product.dart';
 import 'package:best_e_commerce/Widgets/menu_item.dart';
@@ -10,7 +10,7 @@ import 'package:best_e_commerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:best_e_commerce/Serves/Api.dart';
+import 'package:best_e_commerce/Service/Api.dart';
 import 'package:provider/provider.dart';
 
 class Product extends StatefulWidget {

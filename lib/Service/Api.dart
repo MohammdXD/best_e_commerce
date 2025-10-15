@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:best_e_commerce/Moudel/Carts_API.dart';
+import 'package:best_e_commerce/Module/Carts_API.dart';
 import 'package:http/http.dart' as http;
-import 'package:best_e_commerce/Moudel/Proudect_API.dart';
+import 'package:best_e_commerce/Module/Proudect_API.dart';
 
 class Api {
   static String baseUrl = "https://fakestoreapi.com";
