@@ -72,7 +72,7 @@ class _ProductState extends State<Product> {
               surfaceTintColor: Colors.white,
               elevation: 0,
               title: Container(
-                padding: const EdgeInsets.fromLTRB(10, 19, 0, 10),
+                padding: EdgeInsets.fromLTRB(10, 19, 0, 10),
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
@@ -83,8 +83,8 @@ class _ProductState extends State<Product> {
                       borderSide: BorderSide.none,
                       gapPadding: 10,
                     ),
-                    prefixIcon: const Icon(Icons.search),
-                    contentPadding: const EdgeInsets.symmetric(
+                    prefixIcon: Icon(Icons.search),
+                    contentPadding: EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: 10,
                     ),
@@ -93,7 +93,7 @@ class _ProductState extends State<Product> {
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
@@ -107,9 +107,9 @@ class _ProductState extends State<Product> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 15),
+                SizedBox(width: 15),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 6, 2, 0),
+                  padding: EdgeInsets.fromLTRB(0, 6, 2, 0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
@@ -121,7 +121,7 @@ class _ProductState extends State<Product> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 25),
+                SizedBox(width: 25),
               ],
             ),
 
@@ -131,7 +131,7 @@ class _ProductState extends State<Product> {
                   children: [
                     SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(left: 0),
+                      padding: EdgeInsets.only(left: 0),
                       child: Container(
                         width: 340,
                         height: 120,
@@ -191,7 +191,7 @@ class _ProductState extends State<Product> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
                             S.of(context).specialForYou,
                             style: TextStyle(
@@ -203,7 +203,7 @@ class _ProductState extends State<Product> {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
                           child: InkWell(
                             onTap: () {},
                             child: Text(
@@ -243,7 +243,7 @@ class _ProductState extends State<Product> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
                             S.of(context).popularProducts,
                             style: TextStyle(
@@ -255,7 +255,7 @@ class _ProductState extends State<Product> {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
                           child: InkWell(
                             onTap: () {},
                             child: Text(

@@ -12,13 +12,17 @@ import 'package:best_e_commerce/Screens/Register.dart';
 import 'package:best_e_commerce/Screens/Splash.dart';
 import 'package:best_e_commerce/Screens/Main_Screen.dart';
 import 'package:best_e_commerce/Screens/cart.dart';
+import 'package:best_e_commerce/firebase_options.dart';
 import 'package:best_e_commerce/generated/l10n.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-void main(List<String> args) async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     MultiProvider(

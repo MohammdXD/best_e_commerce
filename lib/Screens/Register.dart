@@ -1,5 +1,7 @@
 import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,12 +35,66 @@ class Register_Screen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final conpasswordController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
-    void submit() {
-      if (_formkey.currentState!.validate()) {
+    Future<void> _signUp() async {
+      try {
+        UserCredential userCredential = await _auth
+            .createUserWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim(),
+            );
+
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'email': emailController.text.trim(),
+          'password': passwordController.text.trim(),
+          'confirmPassword': conpasswordController.text.trim(),
+        });
         Navigator.pushNamed(context, Routes.completeProfile);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Data added successfully to Firestore!")),
+        );
+        emailController.clear();
+        passwordController.clear();
+        conpasswordController.clear();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error adding data to Firestore: $e")),
+        );
       }
+    }
+
+    // Future<void> _creat() async {
+    //   try {
+    //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    //       email: emailController.text.trim(),
+    //       password: passwordController.text.trim(),
+    //     );
+    //     Navigator.pushNamed(context, Routes.completeProfile);
+    //     emailController.clear();
+    //     passwordController.clear();
+    //     conpasswordController.clear();
+    //   } on FirebaseAuthException catch (e) {
+    //     if (e.code == 'weak-password') {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         SnackBar(content: Text("The password provided is too weak.")),
+    //       );
+    //     } else if (e.code == 'email-already-in-use') {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         SnackBar(
+    //           content: Text("The account already exists for that email."),
+    //         ),
+    //       );
+    //     }
+    //   }
+    // }
+
+    void submit() {
+      if (_formkey.currentState!.validate()) {}
     }
 
     return Scaffold(
@@ -163,7 +219,7 @@ class Register_Screen extends StatelessWidget {
                 width: 330,
 
                 child: ElevatedButton(
-                  onPressed: submit,
+                  onPressed: _signUp,
                   child: Text(
                     S.of(context).Continue,
                     style: TextStyle(fontSize: 18),

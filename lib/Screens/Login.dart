@@ -1,6 +1,7 @@
 import 'package:best_e_commerce/Provider/language_provider.dart';
 import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,8 +19,22 @@ class Login_Screen extends StatefulWidget {
 class Login_ScreenState extends State<Login_Screen> {
   bool _obscurePassword = true;
   final _formkey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  Future<void> _login() async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      Navigator.pushNamed(context, Routes.home);
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("wrong email or password")));
+    }
+  }
 
   bool _isChecked = false;
   late SharedPreferences _prefs;
@@ -251,7 +266,7 @@ class Login_ScreenState extends State<Login_Screen> {
                 height: 50,
                 width: 330,
                 child: ElevatedButton(
-                  onPressed: submit,
+                  onPressed: _login,
                   child: Text(
                     S.of(context).Continue,
                     style: TextStyle(fontSize: 18),

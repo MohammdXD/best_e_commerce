@@ -1,5 +1,7 @@
 import 'package:best_e_commerce/generated/l10n.dart';
 import 'package:best_e_commerce/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,8 +14,43 @@ class Completeprofile extends StatelessWidget {
   final lastNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final addressController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
+    Future<void> _createUser() async {
+      try {
+        final userData = {
+          'firstName': firstNameController.text.trim(),
+          'lastName': lastNameController.text.trim(),
+          'phoneNumber': phoneNumberController.text.trim(),
+          'address': addressController.text.trim(),
+        };
+
+        await _firestore
+            .collection('usersData')
+            .doc(_auth.currentUser!.uid)
+            .set(userData);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Data added successfully!')),
+        );
+
+        firstNameController.clear();
+        lastNameController.clear();
+        phoneNumberController.clear();
+        addressController.clear();
+
+        Navigator.pushNamed(context, Routes.otp);
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error adding data: $e')));
+      }
+    }
+
     void submit() {
       if (_formkey.currentState!.validate()) {
         Navigator.pushNamed(context, Routes.otp);
@@ -177,7 +214,7 @@ class Completeprofile extends StatelessWidget {
                 width: 330,
 
                 child: ElevatedButton(
-                  onPressed: submit,
+                  onPressed: _createUser,
                   child: Text(
                     S.of(context).Continue,
                     style: TextStyle(fontSize: 18),
