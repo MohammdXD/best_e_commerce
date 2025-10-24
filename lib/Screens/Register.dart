@@ -43,18 +43,19 @@ class Register_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> _signUp() async {
       try {
-        UserCredential userCredential = await _auth
-            .createUserWithEmailAndPassword(
-              email: emailController.text.trim(),
-              password: passwordController.text.trim(),
-            );
-
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
-          'email': emailController.text.trim(),
-          'password': passwordController.text.trim(),
-          'confirmPassword': conpasswordController.text.trim(),
-        });
-        Navigator.pushNamed(context, Routes.completeProfile);
+        await _auth.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+        Navigator.pushNamed(
+          context,
+          Routes.completeProfile,
+          arguments: {
+            'email': emailController.text.trim(),
+            'password': passwordController.text.trim(),
+            'confirmPassword': conpasswordController.text.trim(),
+          },
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Data added successfully to Firestore!")),
         );

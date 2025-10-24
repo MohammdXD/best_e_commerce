@@ -20,6 +20,13 @@ class Completeprofile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final email = args['email'];
+    final password = args['password'];
+    final confirmPassword = args['confirmPassword'];
+
     Future<void> _createUser() async {
       try {
         final userData = {
@@ -27,6 +34,10 @@ class Completeprofile extends StatelessWidget {
           'lastName': lastNameController.text.trim(),
           'phoneNumber': phoneNumberController.text.trim(),
           'address': addressController.text.trim(),
+          'email': email,
+          'password': password,
+          'confirmPassword': confirmPassword,
+          'createdOn': DateTime.now(),
         };
 
         await _firestore
